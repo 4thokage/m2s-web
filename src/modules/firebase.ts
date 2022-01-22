@@ -23,7 +23,7 @@ export const install: UserModule = ({ router, isClient }) => {
 
   if (getApps().length === 0) {
     getAuth(initializeApp({
-      apiKey: VITE_FIREBASE_API_KEY?.toString(),
+      apiKey: VITE_FIREBASE_API_KEY?.toString() || '---121-023-1023-',
       authDomain: VITE_FIREBASE_AUTH_DOMAIN?.toString(),
       projectId: VITE_FIREBASE_PROJECT_ID?.toString(),
       storageBucket: VITE_FIREBASE_STORAGE_BUCKET?.toString(),
