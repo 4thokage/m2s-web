@@ -12,9 +12,9 @@ context('Basic', () => {
       .should('exist')
 
     cy.get('#input')
-      .type('Vitesse{Enter}')
+      .type('Zezadas{Enter}')
       .url()
-      .should('eq', 'http://localhost:3333/hi/Vitesse')
+      .should('eq', 'http://localhost:3333/hi/Zezadas')
 
     cy.contains('[Default Layout]')
       .should('exist')
