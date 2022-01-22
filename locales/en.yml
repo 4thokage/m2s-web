@@ -1,14 +1,16 @@
 button:
-  about: About
   back: Back
-  go: GO
+  create: Create video
+  guide: Guide
   home: Home
+  login: Login
+  github: Github
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
-intro:
-  desc: Opinionated Vite Starter Template
-  dynamic-route: Demo of dynamic route
-  hi: Hi, {name}!
-  aka: Also known as
-  whats-your-name: What's your name?
+home:
+  description: Login or try building a new masterpiece!
+  hi: Hello, {name}!
+  intro: Become a Star!
+login:
+  title: Login
 not-found: Not found

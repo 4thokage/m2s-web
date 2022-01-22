@@ -1,50 +1,31 @@
 <script setup lang="ts">
-import { useUserStore } from '~/stores/user'
 
-const user = useUserStore()
-const name = ref(user.savedName)
+const isGuestModeEnabled = false
 
 const router = useRouter()
-const go = () => {
-  if (name.value)
-    router.push(`/hi/${encodeURIComponent(name.value)}`)
-}
+const login = () => router.push('/auth/login')
+const create = () => router.push('/videos/create')
 
 const { t } = useI18n()
 </script>
 
 <template>
+  <p class="text-lg font-bold m-3">
+    {{ t('home.intro') }}
+  </p>
+
+  <p class="text-base m-3">
+    {{ t('home.description') }}
+  </p>
   <div>
-    <p class="text-4xl">
-      <carbon-campsite class="inline-block" />
-    </p>
-
-    <div class="py-4" />
-
-    <input
-      id="input"
-      v-model="name"
-      :placeholder="t('intro.whats-your-name')"
-      :aria-label="t('intro.whats-your-name')"
-      type="text"
-      autocomplete="false"
-      p="x-4 y-2"
-      w="250px"
-      text="center"
-      bg="transparent"
-      border="~ rounded gray-200 dark:gray-700"
-      outline="none active:none"
-      @keydown.enter="go"
-    >
-    <label class="hidden" for="input">{{ t('intro.whats-your-name') }}</label>
-
     <div>
-      <button
-        class="m-3 text-sm btn"
-        :disabled="!name"
-        @click="go"
-      >
-        {{ t('button.go') }}
+      <button class="m-3 text-sm btn" @click="login">
+        {{ t('button.login') }}
+      </button>
+    </div>
+    <div>
+      <button class="m-3 text-sm btn" :disabled="!isGuestModeEnabled" @click="create">
+        {{ t('button.create') }}
       </button>
     </div>
   </div>
