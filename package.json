@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build": "vite-ssg build",
-    "dev": "vite --port 3333 --open",
+    "build": "cross-env NODE_ENV=production vite-ssg build",
+    "dev": "cross-env NODE_ENV=development vite --port 3333 --open",
     "lint": "eslint \"**/*.{vue,ts,js}\"",
     "preview": "vite preview",
     "preview-https": "serve dist",
@@ -13,7 +13,9 @@
   },
   "dependencies": {
     "@vueuse/core": "^7.5.3",
+    "@vueuse/firebase": "^7.5.4",
     "@vueuse/head": "^0.7.4",
+    "firebase": "^9.6.4",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.9",
     "prism-theme-vars": "^0.2.2",

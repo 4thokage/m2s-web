@@ -5,7 +5,7 @@
 useHead({
   title: 'Midi to star',
   meta: [
-    { name: 'description', content: 'Opinionated Vite Starter Template' },
+    { name: 'description', content: 'YOU can be a star!' },
   ],
 })
 </script>

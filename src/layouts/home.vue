@@ -1,9 +1,9 @@
 <template>
-  <main class="px-4 py-10 text-center text-gray-700 dark:text-gray-200">
-    <router-view />
-    <Footer />
-    <div class="mt-5 mx-auto text-center opacity-25 text-sm">
-      [Home Layout]
+  <main class="h-full bg-star">
+    <div class="h-full bg-gradient-to-t from-fuchsia-900 to-transparent">
+      <div class="absolute bottom-0 w-full px-4 py-4 place-self-center text-white">
+        <router-view />
+      </div>
     </div>
   </main>
 </template>
