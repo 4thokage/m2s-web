@@ -1,0 +1,23 @@
+button:
+  back: Voltar
+  create: Criar video
+  add_instrument: Adiciona novo instrumento
+  guide: Guia
+  home: Inicio
+  login: Login
+  toggle_dark: Trocar modo escuro/claro
+  toggle_langs: Trocar linguagens
+create:
+  warning: Ta tudo down, lamento!
+home:
+  description: Entra na tua conta ou tenta criar uma obra-prima
+  hi: Oi, {name}!
+  intro: Torna-te numa estrela!
+login:
+  title: Login
+midi:
+  header_name: Nome
+  tracks: Numero de faixas
+  upload: 1. Escolher ficheiro MIDI
+  configure_instruments: 2. Configurar instrumentos
+not-found: Não encontrado

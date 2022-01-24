@@ -1,16 +1,25 @@
 button:
   back: Back
   create: Create video
+  add_instrument: Add new instrument
+  github: Github
   guide: Guide
   home: Home
   login: Login
-  github: Github
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
+create:
+  warning: Backend is offline, client-only, sorry!
 home:
-  description: Login or try building a new masterpiece!
+  description: Login or craft a new masterpiece
   hi: Hello, {name}!
   intro: Become a Star!
 login:
   title: Login
+midi:
+  duration: Duration
+  header_name: Name in header
+  tracks: Track count
+  upload: 1. Upload Midi file
+  configure_instruments: 2. Configure instruments
 not-found: Not found
