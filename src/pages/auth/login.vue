@@ -11,7 +11,7 @@ const loginGH = () => signInWithRedirect(auth, ghProvider)
 <template>
   <div>
     <p class="text-4xl">
-      <carbon-pedestrian class="inline-block" />
+      <carbon-pedestrian class="inline-block" /> {{ auth.currentUser?.email }}
     </p>
     <p>
       {{ t('login.title') }}

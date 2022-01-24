@@ -37,15 +37,14 @@ export const install: UserModule = ({ router, isClient }) => {
    */
   router.beforeEach(async(to) => {
     whenever(isFirebaseInit, () => {
-      const guestAuth: any = { value: true }
+      const guestAuth: any = { value: false }
       const isAuthenticated = (typeof to.meta.authenticate === 'boolean' && to.meta.authenticate) ? useAuth(getAuth()) : guestAuth
 
       if (to.name === 'auth-login' && isAuthenticated.value)
         return '/'
 
       if (to.meta.authenticate && to.name !== 'auth-login' && !isAuthenticated.value)
-      // eslint-disable-next-line @typescript-eslint/indent
-      return { name: 'auth-login' }
+        return { name: 'auth-login' }
     })
   })
 }

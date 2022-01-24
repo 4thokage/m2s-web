@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-const isGuestModeEnabled = false
+const isGuestModeEnabled = true
 
 const router = useRouter()
 const login = () => router.push('/auth/login')
-const create = () => router.push('/videos/create')
+const create = () => router.push('/videos/create?mode=guest')
 
 const { t } = useI18n()
 </script>
@@ -24,7 +24,7 @@ const { t } = useI18n()
       </button>
     </div>
     <div>
-      <button class="m-3 text-sm btn" :disabled="!isGuestModeEnabled" @click="create">
+      <button class="m-3 text-sm btn-alt" :disabled="!isGuestModeEnabled" @click="create">
         {{ t('button.create') }}
       </button>
     </div>

@@ -39,8 +39,15 @@ html.dark {
 }
 
 .btn {
-  @apply px-4 py-1 rounded inline-block
+  @apply px-4 py-1 w-50 rounded inline-block
     bg-indigo-600 text-white cursor-pointer
+    hover:bg-indigo-400
+    disabled:cursor-default disabled:bg-indigo-100 disabled:opacity-50;
+}
+
+.btn-alt {
+  @apply px-4 py-1 rounded inline-block w-50
+    border-solid border-1 text-white cursor-pointer
     hover:bg-indigo-400
     disabled:cursor-default disabled:bg-indigo-100 disabled:opacity-50;
 }

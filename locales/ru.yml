@@ -1,13 +1,23 @@
 button:
-  about: О шаблоне
-  back: Назад
-  go: Перейти
-  home: Главная
-  toggle_dark: Включить темный режим
-  toggle_langs: Сменить язык
-intro:
-  desc: Самостоятельный начальный шаблон Vite
-  dynamic-route: Демо динамического маршрута
-  hi: Привет, {name}!
-  whats-your-name: Как тебя зовут?
-not-found: Не найден
+  back: Вернись
+  create: Создание видео
+  add_instrument: Добавлен новый инструмент
+  guide: Гид
+  home: Начало
+  login: Логин
+  toggle_dark: Переключение темного/светлого режима
+  toggle_langs: Замена языков
+create:
+  warning: Это все вниз, извините!
+home:
+  description: Войдите в свой аккаунт или попробуйте создать шедевр
+  hi: волна, {name}!
+  intro: Станьте звездой!
+login:
+  title: Логин
+midi:
+  header_name: Имя
+  tracks: Количество дорожек
+  upload: 1. Выберите MIDI-файл
+  configure_instruments: 2. Настройка инструментов
+not-found: Не найдено

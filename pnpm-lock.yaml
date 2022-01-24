@@ -2,8 +2,10 @@ lockfileVersion: 5.3
 
 specifiers:
   '@antfu/eslint-config': ^0.16.0
+  '@ffmpeg/ffmpeg': 0.9.8
   '@iconify-json/carbon': ^1.0.13
   '@intlify/vite-plugin-vue-i18n': ^3.2.1
+  '@tonejs/midi': ^2.0.27
   '@types/markdown-it-link-attributes': ^3.0.1
   '@types/nprogress': ^0.2.0
   '@vitejs/plugin-vue': ^2.0.1
@@ -31,6 +33,7 @@ specifiers:
   unplugin-icons: ^0.13.0
   unplugin-vue-components: ^0.17.11
   vite: ^2.7.12
+  vite-plugin-cross-origin-isolation: ^0.1.1
   vite-plugin-inspect: ^0.3.13
   vite-plugin-md: ^0.11.7
   vite-plugin-pages: ^0.20.0
@@ -44,8 +47,11 @@ specifiers:
   vue-i18n: ^9.1.9
   vue-router: ^4.0.12
   vue-tsc: ^0.30.2
+  vue-upload-component: ^3.0.50
 
 dependencies:
+  '@ffmpeg/ffmpeg': 0.9.8
+  '@tonejs/midi': 2.0.27
   '@vueuse/core': 7.5.3_vue@3.2.26
   '@vueuse/firebase': 7.5.4_firebase@9.6.4+vue@3.2.26
   '@vueuse/head': 0.7.4_vue@3.2.26
@@ -53,10 +59,12 @@ dependencies:
   nprogress: 0.2.0
   pinia: 2.0.9_typescript@4.5.4+vue@3.2.26
   prism-theme-vars: 0.2.2
+  vite-plugin-cross-origin-isolation: 0.1.1
   vue: 3.2.26
   vue-demi: 0.12.1_vue@3.2.26
   vue-i18n: 9.1.9_vue@3.2.26
   vue-router: 4.0.12_vue@3.2.26
+  vue-upload-component: 3.0.50
 
 devDependencies:
   '@antfu/eslint-config': 0.16.0_eslint@8.6.0+typescript@4.5.4
@@ -1379,6 +1387,16 @@ packages:
       - supports-color
     dev: true
 
+  /@ffmpeg/ffmpeg/0.9.8:
+    resolution: {integrity: sha512-QradleJx78hHJBtI1wRsus1L1jxQB3v4h6k8c3CERI9fssm+NSSppuofmsOei7uq7iQEYq3oK9tJNAyEsRoNng==}
+    engines: {node: '>=12.16.1'}
+    dependencies:
+      is-url: 1.2.4
+      node-fetch: 2.6.5
+      regenerator-runtime: 0.13.9
+      resolve-url: 0.2.1
+    dev: false
+
   /@firebase/analytics-compat/0.1.6_8c68ed8df7b66473d54007d382e86e85:
     resolution: {integrity: sha512-xvdp4/zwOG1f+v9JSpfCQoPJ98HcJR42cEnZ9pRIQLmUy7L7QceIuaF3m+zVtoqa4agBQnJ1dhe58FshOFKOPw==}
     peerDependencies:
@@ -2129,6 +2147,13 @@ packages:
       string.prototype.matchall: 4.0.6
     dev: true
 
+  /@tonejs/midi/2.0.27:
+    resolution: {integrity: sha512-JYiGA8k37rTWKPoiPhbJfWLotnZFCKw0G0rqijHD+u+LdjewTgt/Ubhn2JnD2yR+6+eLXTqHLJRS2a+tNLla3w==}
+    dependencies:
+      array-flatten: 2.1.2
+      midi-file: 1.2.2
+    dev: false
+
   /@tootallnate/once/2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
@@ -2763,6 +2788,10 @@ packages:
   /array-flatten/1.1.1:
     resolution: {integrity: sha1-ml9pkFGx5wczKPKgCJaLZOopVdI=}
     dev: true
+
+  /array-flatten/2.1.2:
+    resolution: {integrity: sha512-hNfzcOV8W4NdualtqBFPyVO+54DSJuZGY9qT4pRroB6S9e3iiido2ISIC5h9R2sPJ8H3FHCIiEnsv1lPXO3KtQ==}
+    dev: false
 
   /array-includes/3.1.4:
     resolution: {integrity: sha512-ZTNSQkmWumEbiHO2GF4GmWxYVTiQyJy2XOTa15sdQSrvKn7l+180egQMqlrMOUMCyLMD7pmyQe4mMDUT6Behrw==}
@@ -5227,6 +5256,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /is-url/1.2.4:
+    resolution: {integrity: sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==}
+    dev: false
+
   /is-weakmap/2.0.1:
     resolution: {integrity: sha512-NSBR4kH5oVj1Uwvv970ruUkCV7O1mzgVFO4/rev2cLRda9Tm9HrL70ZPut4rOHgY0FNrUu9BCbXA2sdQ+x0chA==}
     dev: true
@@ -5701,6 +5734,10 @@ packages:
       braces: 3.0.2
       picomatch: 2.3.0
     dev: true
+
+  /midi-file/1.2.2:
+    resolution: {integrity: sha512-y737hkfHxMikRGzBM22wtyFCo8Pt0jFFiNv7blxY6XF0Rugt8DDE97QzQ0DbJpDd8MyuT6m0ziW1rTStFNrLHw==}
+    dev: false
 
   /mime-db/1.49.0:
     resolution: {integrity: sha512-CIc8j9URtOVApSFCQIF+VBkX1RwXp/oMMOrqdyXSBXq5RWNEsRfyj1kiRnQgmNXmHxPoFIxOroKA3zcU9P+nAA==}
@@ -6470,7 +6507,6 @@ packages:
 
   /regenerator-runtime/0.13.9:
     resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
-    dev: true
 
   /regenerator-transform/0.14.5:
     resolution: {integrity: sha512-eOf6vka5IO151Jfsw2NO9WpGX58W6wWmefK3I1zEGr0lOD0u8rwPaNqQL1aRxUaxLeKO3ArNh3VYg1KbaD+FFw==}
@@ -6547,6 +6583,11 @@ packages:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
     dev: true
+
+  /resolve-url/0.2.1:
+    resolution: {integrity: sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=}
+    deprecated: https://github.com/lydell/resolve-url#deprecated
+    dev: false
 
   /resolve/1.20.0:
     resolution: {integrity: sha512-wENBPt4ySzg4ybFQW2TT1zMQucPK95HSh/nq2CFTZVOGut2+pQvSsgtda4d26YrYcr067wjbmzOG8byDPBX63A==}
@@ -7513,6 +7554,10 @@ packages:
       extsprintf: 1.3.0
     dev: true
 
+  /vite-plugin-cross-origin-isolation/0.1.1:
+    resolution: {integrity: sha512-egyW4CSWORimC2NbIJDJ8Ga1eoUBscFDvY9oLYBfiKHdYHMCiOiIeqtXbgv/2V7aYs//KIP34H2eQw1hEBARwg==}
+    dev: false
+
   /vite-plugin-inspect/0.3.13_vite@2.7.12:
     resolution: {integrity: sha512-Naie3Rx/0IbmQSknfQPVrvWKiar7fCu50u+uLcUgt54yX0espduLDnI8IEtOYlsCA4gHs93IYKtxFDTxAThmYw==}
     engines: {node: '>=14'}
@@ -7888,6 +7933,10 @@ packages:
       typescript: 4.5.4
       vscode-vue-languageservice: 0.30.2
     dev: true
+
+  /vue-upload-component/3.0.50:
+    resolution: {integrity: sha512-p5xh2kvHcjGE+OObKfO59nYM5+nvpt5J2s/Efop/EQ+ec7PEoPZA7Ph+KUNTOSk2s5FqBTQkIrrQ/QSssHIzcA==}
+    dev: false
 
   /vue/3.2.26:
     resolution: {integrity: sha512-KD4lULmskL5cCsEkfhERVRIOEDrfEL9CwAsLYpzptOGjaGFNWo3BQ9g8MAb7RaIO71rmVOziZ/uEN/rHwcUIhg==}
