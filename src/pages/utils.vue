@@ -33,7 +33,12 @@ const onClickExecute = async(_e: any) => {
 
   let type = 'application/octet-stream'
   if (customCommand.value !== '') {
-    const [, ...ffmpegArgs] = customCommand.value.split(/(\s+)/)
+    const [, ...ffmpegArgs] = customCommand.value
+      .replace(/-i\s\w+.\w+/g, '-i source')
+      .replace(/\w+.\w+$/g, 'sink.')
+      .split(/(\s+)/)
+      .map(i => i.trim())
+      .filter(i => i !== '')
     await ffmpeg.run(...ffmpegArgs)
   }
   else {
