@@ -14,7 +14,6 @@ import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Inspect from 'vite-plugin-inspect'
 import Prism from 'markdown-it-prism'
 import LinkAttributes from 'markdown-it-link-attributes'
-import crossOriginIsolation from 'vite-plugin-cross-origin-isolation'
 
 const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 
@@ -25,8 +24,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    crossOriginIsolation(),
-
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),
