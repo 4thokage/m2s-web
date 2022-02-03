@@ -33,7 +33,6 @@ specifiers:
   unplugin-icons: ^0.13.0
   unplugin-vue-components: ^0.17.11
   vite: ^2.7.12
-  vite-plugin-cross-origin-isolation: ^0.1.1
   vite-plugin-inspect: ^0.3.13
   vite-plugin-md: ^0.11.7
   vite-plugin-pages: ^0.20.0
@@ -59,7 +58,6 @@ dependencies:
   nprogress: 0.2.0
   pinia: 2.0.9_typescript@4.5.4+vue@3.2.26
   prism-theme-vars: 0.2.2
-  vite-plugin-cross-origin-isolation: 0.1.1
   vue: 3.2.26
   vue-demi: 0.12.1_vue@3.2.26
   vue-i18n: 9.1.9_vue@3.2.26
@@ -1898,8 +1896,8 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/message-compiler': 9.2.0-beta.28
-      '@intlify/shared': 9.2.0-beta.28
+      '@intlify/message-compiler': 9.2.0-beta.30
+      '@intlify/shared': 9.2.0-beta.30
       jsonc-eslint-parser: 1.4.1
       source-map: 0.6.1
       vue-i18n: 9.1.9_vue@3.2.26
@@ -1934,11 +1932,11 @@ packages:
       source-map: 0.6.1
     dev: false
 
-  /@intlify/message-compiler/9.2.0-beta.28:
-    resolution: {integrity: sha512-NBH9fZyitN2cijGt8bmU1W7ZPdhKbgW01L1RxJKFJW0cRaCmknJq63Aif1Q6xcxKt9ZhPbvIKHgPGzg1nWMfeA==}
+  /@intlify/message-compiler/9.2.0-beta.30:
+    resolution: {integrity: sha512-2kj/0nLIFrgiO86f9VifcUUcV8LdzXt4YYPIujx/LkTEQOuSFUo/bNiMaG1hyfiU/8mfq6tsaWKjoOZjeao1eQ==}
     engines: {node: '>= 12'}
     dependencies:
-      '@intlify/shared': 9.2.0-beta.28
+      '@intlify/shared': 9.2.0-beta.30
       source-map: 0.6.1
     dev: true
 
@@ -1961,8 +1959,8 @@ packages:
     engines: {node: '>= 10'}
     dev: false
 
-  /@intlify/shared/9.2.0-beta.28:
-    resolution: {integrity: sha512-JBMcoj1D4kSAma7Vb0+d8z6lPLIn7hIdZJPxbU8bgeMMniwKLoIS/jGlEfrZihsB5+otckPeQp203z8skwVS0w==}
+  /@intlify/shared/9.2.0-beta.30:
+    resolution: {integrity: sha512-E1WHRTIlUEse3d/6t1pAagSXRxmeVeNIhx5kT80dfpYxw8lOnCWV9wLve2bq9Fkv+3TD2I5j+CdN7jvSl3LdsA==}
     engines: {node: '>= 12'}
     dev: true
 
@@ -1980,7 +1978,7 @@ packages:
         optional: true
     dependencies:
       '@intlify/bundle-utils': 2.2.0_vue-i18n@9.1.9
-      '@intlify/shared': 9.2.0-beta.28
+      '@intlify/shared': 9.2.0-beta.30
       '@rollup/pluginutils': 4.1.1
       debug: 4.3.2
       fast-glob: 3.2.7
@@ -7553,10 +7551,6 @@ packages:
       core-util-is: 1.0.2
       extsprintf: 1.3.0
     dev: true
-
-  /vite-plugin-cross-origin-isolation/0.1.1:
-    resolution: {integrity: sha512-egyW4CSWORimC2NbIJDJ8Ga1eoUBscFDvY9oLYBfiKHdYHMCiOiIeqtXbgv/2V7aYs//KIP34H2eQw1hEBARwg==}
-    dev: false
 
   /vite-plugin-inspect/0.3.13_vite@2.7.12:
     resolution: {integrity: sha512-Naie3Rx/0IbmQSknfQPVrvWKiar7fCu50u+uLcUgt54yX0espduLDnI8IEtOYlsCA4gHs93IYKtxFDTxAThmYw==}
