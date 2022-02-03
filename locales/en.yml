@@ -21,6 +21,7 @@ utils:
   upload: Upload file
   convert: Convert to
   execute: Execute operation
+  custom-command: ffmpeg -i ... DIY
 midi:
   duration: Duration
   header_name: Name in header
