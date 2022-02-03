@@ -33,61 +33,67 @@ const onClickExecute = async(_e: any) => {
 
   let type = 'application/octet-stream'
   let data
-  if (customCommand.value !== '') {
-    const [, ...ffmpegArgs] = customCommand.value
-      .replace(/-i\s\w+.\w+/g, '-i source')
-      .split(/(\s+)/)
-      .map(i => i.trim())
-      .filter(i => i !== '')
-    await ffmpeg.run(...ffmpegArgs)
-    data = ffmpeg.FS('readFile', `${ffmpegArgs.pop()}`)
-  }
-  else {
-    switch (operation.value) {
-      case 'mp3':
-        type = 'audio/mpeg'
-        await ffmpeg.run('-i', 'source', '-q:a', '0', '-map', 'a', 'sink.mp3')
-        break
-      case 'wav':
-        type = 'audio/wav'
-        await ffmpeg.run('-i', 'source', '-acodec', 'pcm_u8', '-ar', '22050', 'sink.wav')
-        break
-      case 'mp4':
-        type = 'video/mp4'
-        await ffmpeg.run('-i', 'source', '-codec', 'copy', 'sink.mp4')
-        break
-      case 'mov':
-        type = 'video/quicktime'
-        await ffmpeg.run('-i', 'source', '-f', 'mov', 'sink.mov')
-        break
-      case 'mkv':
-        type = 'ideo/x-matroska'
-        await ffmpeg.run('-i', 'source', '-codec', 'copy', 'sink.mkv')
-        break
-      case 'gif':
-        type = 'image/gif'
-        await ffmpeg.run('-i', 'source', '-t', '2.5', '-ss', '2.0', '-f', 'gif', 'sink.gif')
-        break
-      case 'webm':
-        type = 'video/webm'
-        await ffmpeg.run('-i', 'source', '-c:v', 'libvpx-vp9', '-crf', '30', '-b:v', '0', '-b:a', '128k', '-c:a', 'libopus', 'sink.webm')
-        break
-
-      default:
-        break
+  try {
+    if (customCommand.value !== '') {
+      const [, ...ffmpegArgs] = customCommand.value
+        .replace(/-i\s\w+.\w+/g, '-i source')
+        .split(/(\s+)/)
+        .map(i => i.trim())
+        .filter(i => i !== '')
+      await ffmpeg.run(...ffmpegArgs)
+      data = ffmpeg.FS('readFile', `${ffmpegArgs.pop()}`)
     }
-    data = ffmpeg.FS('readFile', `sink.${operation.value}`)
-  }
+    else {
+      switch (operation.value) {
+        case 'mp3':
+          type = 'audio/mpeg'
+          await ffmpeg.run('-i', 'source', '-q:a', '0', '-map', 'a', 'sink.mp3')
+          break
+        case 'wav':
+          type = 'audio/wav'
+          await ffmpeg.run('-i', 'source', '-acodec', 'pcm_u8', '-ar', '22050', 'sink.wav')
+          break
+        case 'mp4':
+          type = 'video/mp4'
+          await ffmpeg.run('-i', 'source', '-codec', 'copy', 'sink.mp4')
+          break
+        case 'mov':
+          type = 'video/quicktime'
+          await ffmpeg.run('-i', 'source', '-f', 'mov', 'sink.mov')
+          break
+        case 'mkv':
+          type = 'ideo/x-matroska'
+          await ffmpeg.run('-i', 'source', '-codec', 'copy', 'sink.mkv')
+          break
+        case 'gif':
+          type = 'image/gif'
+          await ffmpeg.run('-i', 'source', '-t', '2.5', '-ss', '2.0', '-f', 'gif', 'sink.gif')
+          break
+        case 'webm':
+          type = 'video/webm'
+          await ffmpeg.run('-i', 'source', '-c:v', 'libvpx-vp9', '-crf', '30', '-b:v', '0', '-b:a', '128k', '-c:a', 'libopus', 'sink.webm')
+          break
 
-  // Create a URL and download
-  const blob = new Blob([data.buffer], { type })
-  const link = document.createElement('a')
-  link.href = URL.createObjectURL(blob)
-  link.download = 'result'
-  link.click()
-  URL.revokeObjectURL(link.href)
-  NProgress.done()
-  isProcessing.value = false
+        default:
+          break
+      }
+      data = ffmpeg.FS('readFile', `sink.${operation.value}`)
+    }
+    // Create a URL and download
+    const blob = new Blob([data.buffer], { type })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    link.download = 'result'
+    link.click()
+    URL.revokeObjectURL(link.href)
+  }
+  catch (error) {
+    // we dont care bout no errors
+  }
+  finally {
+    NProgress.done()
+    isProcessing.value = false
+  }
 }
 
 const operations = [
@@ -122,7 +128,7 @@ const operations = [
   </select>
 
   <div class="py-2" />
-  <input
+  <textarea
     id="input"
     v-model="customCommand"
     :placeholder="t('utils.custom-command')"
@@ -136,7 +142,7 @@ const operations = [
     border="~ rounded gray-200 dark:gray-700"
     outline="none active:none"
     @keydown.enter="onClickExecute"
-  >
+  />
   <label class="hidden" for="input">{{ t('utils.custom-command') }}</label>
 
   <div>
