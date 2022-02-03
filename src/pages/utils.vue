@@ -32,14 +32,15 @@ const onClickExecute = async(_e: any) => {
   ffmpeg.FS('writeFile', 'source', await fetchFile(file.value))
 
   let type = 'application/octet-stream'
+  let data
   if (customCommand.value !== '') {
     const [, ...ffmpegArgs] = customCommand.value
       .replace(/-i\s\w+.\w+/g, '-i source')
-      .replace(/\w+.\w+$/g, 'sink.')
       .split(/(\s+)/)
       .map(i => i.trim())
       .filter(i => i !== '')
     await ffmpeg.run(...ffmpegArgs)
+    data = ffmpeg.FS('readFile', `${ffmpegArgs.pop()}`)
   }
   else {
     switch (operation.value) {
@@ -75,9 +76,8 @@ const onClickExecute = async(_e: any) => {
       default:
         break
     }
+    data = ffmpeg.FS('readFile', `sink.${operation.value}`)
   }
-  // Read the result
-  const data = ffmpeg.FS('readFile', `sink.${operation.value}`)
 
   // Create a URL and download
   const blob = new Blob([data.buffer], { type })
