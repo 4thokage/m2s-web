@@ -22,6 +22,12 @@ home:
   intro: Become a Star!
 login:
   title: Login
+utils:
+  description: Some utils I think are nice to have on the go =)
+  upload: Upload file
+  convert: Convert to
+  execute: Execute operation
+  custom-command: ffmpeg -i ... DIY
 midi:
   configure_instruments: 2. Configure instruments
   duration: Duration

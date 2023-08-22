@@ -15,6 +15,11 @@ home:
   intro: Станьте звездой!
 login:
   title: Логин
+utils:
+  description: ffmpeg Инструменты
+  upload: Загрузить файл
+  convert: Преобразовать в
+  execute: Исполнитель
 midi:
   header_name: Имя
   tracks: Количество дорожек

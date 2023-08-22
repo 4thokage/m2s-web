@@ -15,6 +15,11 @@ home:
   intro: Torna-te numa estrela!
 login:
   title: Login
+utils:
+  description: Ferramentas ffmpeg
+  upload: Upload ficheiro
+  convert: Converter para
+  execute: Executar
 midi:
   header_name: Nome
   tracks: Numero de faixas
