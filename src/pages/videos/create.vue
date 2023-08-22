@@ -2,31 +2,48 @@
 import * as midiPkg from '@tonejs/midi'
 import { createFFmpeg } from '@ffmpeg/ffmpeg'
 import { computed, ref } from 'vue'
+import { useDropzone } from 'vue3-dropzone'
 
 const { t } = useI18n()
 const { Midi } = midiPkg
-const ffmpeg = createFFmpeg({ log: true })
-const midi = ref(new Midi().toJSON())
+const ffmpeg = createFFmpeg({
+  log: true,
+})
+const midi = ref<midiPkg.MidiJSON>()
+midi.value = {
+  tracks: [],
+  header: {
+    name: 'sample',
+    ppq: 0,
+    meta: [],
+    tempos: [],
+    timeSignatures: [],
+    keySignatures: [],
+  },
+}
+const isCreationEnabled = ref(false)
 const isMidiLoaded = computed(() => midi.value.tracks.length > 0)
+const tracksWithNotes = computed(() => midi.value.tracks.filter(t => t.notes.length > 0))
 
-const onChangeMidiFile = (e: any) => {
-  Midi.fromUrl(URL.createObjectURL(e.target?.files[0])).then((data) => {
-    if (data) midi.value = data.toJSON()
+function onChangeMidiFile(acceptFiles: any, _rejectReasons: any) {
+  Midi.fromUrl(URL.createObjectURL(acceptFiles[0])).then((data) => {
+    if (data)
+      midi.value = data.toJSON()
   })
 }
 
-const isCreationEnabled = ref(false)
+const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({ accept: '.mid', maxFiles: 1, onDrop: onChangeMidiFile })
 
-const onChangeInstrument = (_e: Event) => {
+function onChangeInstrument(_e: Event) {
   isCreationEnabled.value = true
 }
 
-const onCreateVideo = (_e: any) => {
-  if (!ffmpeg.isLoaded()) ffmpeg.load()
+function onCreateVideo(_e: any) {
+  if (!ffmpeg.loaded)
+    ffmpeg.load()
 }
 
 const instruments = [{ name: 'DEMO', id: 1 }]
-
 </script>
 
 <template>
@@ -39,31 +56,47 @@ const instruments = [{ name: 'DEMO', id: 1 }]
     <div class="py-4" />
 
     <label class="px-4" for="midiFile">{{ t('midi.upload') }}</label>
-    <input type="file" name="midiFile" accept=".mid" required @change="onChangeMidiFile">
+    <div class="py-1" />
+    <div class="cursor-pointer border-1 border-purple-700 border-dotted border-solid" v-bind="getRootProps()">
+      <input name="midiFile" v-bind="getInputProps()">
+      <p v-if="isDragActive">
+        {{ t('dropzone.drag') }}
+      </p>
+      <p v-else>
+        {{ t('dropzone.drop') }}
+      </p>
+      <p v-if="acceptedFiles.length > 0">
+        {{ t('dropzone.accept') }}
+      </p>
+    </div>
     <div class="py-2" />
     <div v-if="isMidiLoaded">
-      <div v-if="isMidiLoaded" class="bg-purple-700 opacity-60 py-px-4 rounded">
-        {{ t('midi.header_name') }}: {{ midi.header.name || "_" }}
-        {{ t('midi.tracks') }}: {{ midi.tracks.length }}
+      <div v-if="isMidiLoaded" class="py-px-4 flex-col rounded bg-purple-700 text-white opacity-50">
+        <p> {{ midi.header.name || t('midi.header_name_empty') }}</p>
+        <p>{{ t('midi.tracks') }}: {{ tracksWithNotes.length }}</p>
       </div>
-      <div class="py-2" />
+      <div class="py-4" />
       <label class="px-4" for="instrumentSelect">{{ t('midi.configure_instruments') }}</label>
-      <select class="form-control" name="instrumentSelect" @change="onChangeInstrument($event)">
-        <option value selected disabled>
-          Choose
-        </option>
-        <option
-          v-for="instrument in instruments"
-          :key="instrument.id"
-          :value="instrument.id"
-        >
-          {{ instrument.name }}
-        </option>
-      </select>
-      <div>
-        <button class="m-3 text-sm btn-alt" :disabled="true">
-          {{ t('button.add_instrument') }}
-        </button>
+      <div class="py-1" />
+      <div v-for="track in tracksWithNotes" :key="track.name" name="instrumentSelect" class="grid grid-cols-3 py-1">
+        <p class="align-middle">
+          {{ track.name || t('midi.header_name_empty') }}
+        </p>
+        <select class="text-black" @change="onChangeInstrument($event)">
+          <option value="-1" selected>
+            {{ t('button.disabled') }}
+          </option>
+          <option
+            v-for="instrument in instruments"
+            :key="instrument.id"
+            :value="instrument.id"
+          >
+            {{ instrument.name }}
+          </option>
+        </select>
+        <div class="text-left">
+          <carbon-add class="inline-block" />
+        </div>
       </div>
     </div>
     <div class="py-2" />

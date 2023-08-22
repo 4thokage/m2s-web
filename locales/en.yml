@@ -1,15 +1,21 @@
 button:
+  add_instrument: Add new instrument
   back: Back
   create: Create video
-  add_instrument: Add new instrument
   github: Github
   guide: Guide
   home: Home
   login: Login
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
+  disabled: Disabled
 create:
   warning: Backend is offline, client-only, sorry!
+dropzone:
+  drag: Drop the file here ...
+  drop: Drag 'n' drop the file here, or click to select
+  accept: File accepted.
+  error: File rejected!
 home:
   description: Login or craft a new masterpiece
   hi: Hello, {name}!
@@ -17,9 +23,10 @@ home:
 login:
   title: Login
 midi:
+  configure_instruments: 2. Configure instruments
   duration: Duration
   header_name: Name in header
-  tracks: Track count
-  upload: 1. Upload Midi file
-  configure_instruments: 2. Configure instruments
+  header_name_empty: No name
+  tracks: Tracks
+  upload: 1. Midi file
 not-found: Not found

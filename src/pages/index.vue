@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const isGuestModeEnabled = true
 
 const router = useRouter()
@@ -10,11 +9,11 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <p class="text-lg font-bold m-3">
+  <p class="m-3 text-lg font-bold">
     {{ t('home.intro') }}
   </p>
 
-  <p class="text-base m-3">
+  <p class="m-3 text-base">
     {{ t('home.description') }}
   </p>
   <div>
@@ -24,7 +23,7 @@ const { t } = useI18n()
       </button>
     </div>
     <div>
-      <button class="m-3 text-sm btn-alt" :disabled="!isGuestModeEnabled" @click="create">
+      <button class="btn-alt m-3 text-sm" :disabled="!isGuestModeEnabled" @click="create">
         {{ t('button.create') }}
       </button>
     </div>
