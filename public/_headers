@@ -6,6 +6,8 @@
   cross-origin-opener-policy: same-origin
   cross-origin-embedder-policy: require-corp
 
+/auth/login
+  cross-origin-resource-policy: cross-origin
   
 /utils
   cross-origin-opener-policy: same-origin

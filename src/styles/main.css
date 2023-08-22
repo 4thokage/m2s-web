@@ -11,22 +11,20 @@ body,
 
 html.dark {
   background: #121212;
+  color-scheme: dark;
 }
-
-
 
 #nprogress {
   pointer-events: none;
 }
 
 #nprogress .bar {
-  @apply bg-indigo-600 opacity-75;
-
+  background: rgb(13,148,136);
+  opacity: 0.75;
   position: fixed;
   z-index: 1031;
   top: 0;
   left: 0;
-
   width: 100%;
   height: 2px;
 }

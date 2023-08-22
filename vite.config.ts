@@ -1,31 +1,37 @@
-import path from 'path'
+import { URL, fileURLToPath } from 'node:url'
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
+import generateSitemap from 'vite-ssg-sitemap'
 import Layouts from 'vite-plugin-vue-layouts'
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import Markdown from 'vite-plugin-md'
-import WindiCSS from 'vite-plugin-windicss'
+import Markdown from 'vite-plugin-vue-markdown'
 import { VitePWA } from 'vite-plugin-pwa'
-import VueI18n from '@intlify/vite-plugin-vue-i18n'
-import Inspect from 'vite-plugin-inspect'
-import Prism from 'markdown-it-prism'
+import VueI18n from '@intlify/unplugin-vue-i18n/vite'
+import VueDevTools from 'vite-plugin-vue-devtools'
 import LinkAttributes from 'markdown-it-link-attributes'
-
-const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
+import Unocss from 'unocss/vite'
+import Shiki from 'markdown-it-shiki'
+import VueMacros from 'unplugin-vue-macros/vite'
+import WebfontDownload from 'vite-plugin-webfont-dl'
 
 export default defineConfig({
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+
   plugins: [
-    Vue({
-      include: [/\.vue$/, /\.md$/],
+    VueMacros({
+      plugins: {
+        vue: Vue({
+          include: [/\.vue$/, /\.md$/],
+        }),
+      },
     }),
 
     // https://github.com/hannoeru/vite-plugin-pages
@@ -44,53 +50,43 @@ export default defineConfig({
         'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
-        'vitest',
       ],
       dts: 'src/auto-imports.d.ts',
+      dirs: [
+        'src/composables',
+        'src/stores',
+      ],
+      vueTemplate: true,
     }),
 
     // https://github.com/antfu/unplugin-vue-components
     Components({
       // allow auto load markdown components under `./src/components/`
       extensions: ['vue', 'md'],
-
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-
-      // custom resolvers
-      resolvers: [
-        // auto import icons
-        // https://github.com/antfu/unplugin-icons
-        IconsResolver({
-          componentPrefix: '',
-          // enabledCollections: ['carbon']
-        }),
-      ],
-
       dts: 'src/components.d.ts',
     }),
 
-    // https://github.com/antfu/unplugin-icons
-    Icons({
-      autoInstall: true,
-    }),
+    // https://github.com/antfu/unocss
+    // see uno.config.ts for config
+    Unocss(),
 
-    // https://github.com/antfu/vite-plugin-windicss
-    WindiCSS({
-      safelist: markdownWrapperClasses,
-    }),
-
-    // https://github.com/antfu/vite-plugin-md
+    // https://github.com/antfu/vite-plugin-vue-markdown
+    // Don't need this? Try vitesse-lite: https://github.com/antfu/vitesse-lite
     Markdown({
-      wrapperClasses: markdownWrapperClasses,
+      wrapperClasses: 'prose prose-sm m-auto text-left',
       headEnabled: true,
       markdownItSetup(md) {
         // https://prismjs.com/
-        // @ts-expect-error types mismatch
-        md.use(Prism)
-        // @ts-expect-error types mismatch
+        md.use(Shiki, {
+          theme: {
+            light: 'vitesse-light',
+            dark: 'vitesse-dark',
+          },
+        })
         md.use(LinkAttributes, {
-          pattern: /^https?:\/\//,
+          matcher: (link: string) => /^https?:\/\//.test(link),
           attrs: {
             target: '_blank',
             rel: 'noopener',
@@ -102,10 +98,10 @@ export default defineConfig({
     // https://github.com/antfu/vite-plugin-pwa
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'robots.txt', 'safari-pinned-tab.svg'],
+      includeAssets: ['favicon.svg', 'safari-pinned-tab.svg'],
       manifest: {
-        name: 'Midi 2 Star',
-        short_name: 'm2s',
+        name: 'Vitesse',
+        short_name: 'Vitesse',
         theme_color: '#ffffff',
         icons: [
           {
@@ -128,43 +124,20 @@ export default defineConfig({
       },
     }),
 
-    // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
+    // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
     VueI18n({
       runtimeOnly: true,
       compositionOnly: true,
+      fullInstall: true,
       include: [path.resolve(__dirname, 'locales/**')],
     }),
 
-    // https://github.com/antfu/vite-plugin-inspect
-    Inspect({
-      // change this to enable inspect for debugging
-      enabled: false,
-    }),
+    // https://github.com/feat-agency/vite-plugin-webfont-dl
+    WebfontDownload(),
+
+    // https://github.com/webfansplz/vite-plugin-vue-devtools
+    VueDevTools(),
   ],
-
-  server: {
-    fs: {
-      strict: true,
-    },
-  },
-
-  // https://github.com/antfu/vite-ssg
-  ssgOptions: {
-    script: 'async',
-    formatting: 'minify',
-  },
-
-  optimizeDeps: {
-    include: [
-      'vue',
-      'vue-router',
-      '@vueuse/core',
-      '@vueuse/head',
-    ],
-    exclude: [
-      'vue-demi',
-    ],
-  },
 
   // https://github.com/vitest-dev/vitest
   test: {
@@ -173,5 +146,26 @@ export default defineConfig({
     deps: {
       inline: ['@vue', '@vueuse', 'vue-demi'],
     },
+  },
+
+  // https://github.com/antfu/vite-ssg
+  ssgOptions: {
+    script: 'async',
+    formatting: 'minify',
+    crittersOptions: {
+      reduceInlineStyles: false,
+    },
+    onFinished() {
+      generateSitemap()
+    },
+  },
+
+  ssr: {
+    // TODO: workaround until they support native ESM
+    noExternal: ['workbox-window', /vue-i18n/],
+  },
+
+  optimizeDeps: {
+    exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util', 'vue-demi'],
   },
 })

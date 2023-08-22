@@ -9,13 +9,14 @@ const file = ref('')
 const operation = ref('')
 const isProcessing = ref(false)
 
-if (!ffmpeg.isLoaded()) ffmpeg.load()
+if (!ffmpeg.isLoaded())
+  ffmpeg.load()
 
-const onChangeFile = (e: any) => {
+function onChangeFile(e: any) {
   file.value = e.target?.files.item(0)
 }
 
-const onChangeOperation = (e: any) => {
+function onChangeOperation(e: any) {
   operation.value = e.target.value
 }
 
@@ -23,8 +24,9 @@ const customCommand = ref('')
 
 const isExecutionAvailable = computed(() => file.value && !isProcessing.value)
 
-const onClickExecute = async(_e: any) => {
-  if (!ffmpeg.isLoaded()) return
+async function onClickExecute(_e: any) {
+  if (!ffmpeg.isLoaded())
+    return
 
   // Write the file to memory
   isProcessing.value = true
@@ -106,7 +108,6 @@ const operations = [
   { name: 'webm', id: 'webm' },
 
 ]
-
 </script>
 
 <template>

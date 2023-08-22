@@ -1,6 +1,6 @@
 <script setup lang="ts">
-
 import { GithubAuthProvider, getAuth, signInWithRedirect } from 'firebase/auth'
+
 const { t } = useI18n()
 
 const auth = getAuth()
@@ -19,7 +19,7 @@ const loginGH = () => signInWithRedirect(auth, ghProvider)
 
     <div>
       <button
-        class="btn m-3 text-sm mt-6"
+        class="m-3 mt-6 text-sm btn"
         @click="loginGH"
       >
         {{ t('button.github') }}
